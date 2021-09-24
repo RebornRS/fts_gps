@@ -1,0 +1,20 @@
+local Tunnel = module("vrp", "lib/Tunnel")
+local Proxy = module("vrp", "lib/Proxy")
+
+fts = Tunnel.getInterface(GetCurrentResourceName())
+
+CreateThread(function()
+    fts.ConsultarCargo()
+end)
+
+RegisterNetEvent("GPS:toPlayer")
+AddEventHandler("GPS:toPlayer", function(x,y,z,id,color,text)
+    blip = AddBlipForCoord(x, y, z)
+    SetBlipSprite(blip, id)
+    SetBlipColour(blip, color)
+    SetBlipScale(blip, 0.6)
+    SetBlipAsShortRange(blip, true)
+    BeginTextCommandSetBlipName("STRING")
+    AddTextComponentString(text)
+    EndTextCommandSetBlipName(blip)
+end)
